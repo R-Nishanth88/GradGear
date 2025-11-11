@@ -387,8 +387,8 @@ export default function ResumeBuilder() {
                   disabled={analyzing || !hasUploaded}
                   className="mt-4 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {analyzing ? 'Analyzing...' : 'Run Full AI Analysis'}
-                </Button>
+                    {analyzing ? 'Analyzing...' : 'Run Full AI Analysis'}
+                  </Button>
               </div>
               {!hasUploaded && (
                 <p className="text-xs text-slate-500 mt-3">
@@ -408,15 +408,15 @@ export default function ResumeBuilder() {
                   <div className="flex flex-col gap-6">
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                       <div>
-                        <h2 className="font-display text-2xl">AI-Powered Resume Analysis</h2>
+                    <h2 className="font-display text-2xl">AI-Powered Resume Analysis</h2>
                         <p className="text-sm text-slate-500 mt-1">
                           Review the recommendations below. When you’re ready, click <span className="font-semibold">Start Learning</span> to open a curated plan aligned with your missing skills.
                         </p>
                       </div>
                       <div className="flex flex-wrap items-center gap-3">
                         <Button variant="ghost" size="sm" onClick={() => setShowAnalysis(false)}>
-                          Close
-                        </Button>
+                      Close
+                    </Button>
                         <Button
                           onClick={() => navigate('/learning', { state: { focus: 'skill-gap' } })}
                           className="bg-brand-blue text-white hover:opacity-90"

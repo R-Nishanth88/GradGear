@@ -3679,14 +3679,14 @@ async def get_quiz(
 ):
     domain_norm = _normalize_domain(domain)
     bank = _filter_questions(domain_norm, mode, difficulty)
-
-    if not bank:
+        
+        if not bank:
         raise HTTPException(status_code=404, detail=f"No questions available for domain: {domain_norm}")
-
+        
     selected = bank if len(bank) <= limit else sample(bank, limit)
-
+        
     items = []
-    for q in selected:
+        for q in selected:
         options = q["options"].copy()
         correct_label = options[q["answer"]]
         shuffle(options)
@@ -3700,10 +3700,10 @@ async def get_quiz(
                 "skill": q["skill"],
             }
         )
-
+        
     settings = DIFFICULTY_SETTINGS.get(difficulty, DIFFICULTY_SETTINGS["intermediate"])
 
-    return {
+        return {
         "domain": domain_norm,
         "mode": mode,
         "difficulty": difficulty,

@@ -456,7 +456,7 @@ const skillCards: SkillCard[] = useMemo(() => {
                           <p className="mt-2 text-xs text-slate-500">{card.sourceReason}</p>
                         )}
                       </div>
-                    )}
+          )}
                   </div>
                   <div className="mt-5 flex items-center justify-between">
                     <span className={`text-xs font-medium ${completed[card.key] ? 'text-brand-blue' : 'text-slate-400'}`}>
@@ -530,7 +530,7 @@ const skillCards: SkillCard[] = useMemo(() => {
               ))}
             </div>
           </section>
-        )}
+          )}
 
         <section>
           <div className="flex items-center justify-between mb-4">

@@ -197,13 +197,13 @@ const CodingPage: React.FC = () => {
   if (overviewLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-slate-950">
-                  <LoadingSpinner />
-                </div>
+        <LoadingSpinner />
+      </div>
     )
   }
 
   if (overviewQuery.isError || !overview) {
-                    return (
+    return (
       <div className="min-h-screen flex items-center justify-center bg-slate-950 text-slate-100">
         <Card className="max-w-lg text-center space-y-4 p-10">
           <h2 className="text-xl font-semibold">Coding experience unavailable</h2>
@@ -212,7 +212,7 @@ const CodingPage: React.FC = () => {
             again.
           </p>
         </Card>
-                        </div>
+      </div>
     )
   }
 
@@ -238,7 +238,7 @@ const CodingPage: React.FC = () => {
             <div className="flex items-center justify-between text-xs uppercase tracking-[0.3em] text-slate-500">
               <span>Streak</span>
               <Flame className="h-4 w-4 text-amber-400" />
-            </div>
+                </div>
             <h3 className="text-3xl font-semibold">{overview.progress.streak_days}</h3>
             <p className="text-xs text-slate-400">Daily practice streak. Keep it alive to unlock bonus challenges.</p>
             </Card>
@@ -275,22 +275,22 @@ const CodingPage: React.FC = () => {
               </svg>
               <div className="absolute inset-0 flex items-center justify-center text-xl font-semibold">
                 {masteryRing.masteryPct}%
+                  </div>
                 </div>
-                        </div>
             <div className="space-y-2">
               <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Mastery</p>
               <h3 className="text-lg font-semibold">Interview-ready meter</h3>
               <p className="text-xs text-slate-400">
                 Summary of your mastery across core skills. Push it above 80% to unlock mock interviews.
               </p>
-                          </div>
+                  </div>
                       </Card>
 
           <Card className="bg-slate-900/60 border-slate-800 p-6 space-y-3">
             <div className="flex items-center justify-between text-xs uppercase tracking-[0.3em] text-slate-500">
               <span>Weekly Challenge</span>
               <Target className="h-4 w-4 text-rose-400" />
-                        </div>
+            </div>
             <h3 className="text-lg font-semibold">{overview.weekly_challenge?.title ?? 'New project drops every Friday'}</h3>
             <p className="text-xs text-slate-400 line-clamp-3">
               {overview.weekly_challenge?.description ??
@@ -331,9 +331,9 @@ const CodingPage: React.FC = () => {
                 {trendingQuery.data.slice(0, 6).map((item: any, idx: number) => (
                   <span key={`${item.token || item.skill || item?.name || idx}`} className="px-2 py-1 rounded-full bg-brand-blue/10 text-brand-blue text-xs">
                     {item.token || item.skill || item?.name || item}
-                  </span>
+                                </span>
                 ))}
-              </div>
+                              </div>
             ) : null}
 
             <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
@@ -341,7 +341,7 @@ const CodingPage: React.FC = () => {
                 <button
                   key={skill.skill ? `${skill.skill}-${idx}` : idx}
                   onClick={() => setSelectedSkill(skill.skill)}
-                  className={cn(
+                                  className={cn(
                     'rounded-xl border p-4 text-left transition backdrop-blur bg-white/5/10 hover:border-brand-blue/40',
                     selectedSkill === skill.skill ? 'border-brand-blue/80 shadow-lg shadow-brand-blue/20' : 'border-white/10'
                   )}
@@ -365,7 +365,7 @@ const CodingPage: React.FC = () => {
                   ) : null}
                 </button>
               ))}
-                                </div>
+                      </div>
           </Card>
 
           <Card className="bg-slate-900/70 border-slate-800 p-6 space-y-4">
@@ -374,8 +374,8 @@ const CodingPage: React.FC = () => {
               <div>
                 <h2 className="text-lg font-semibold">Your streak log</h2>
                 <p className="text-xs text-slate-400">Recent attempts and XP growth.</p>
-                            </div>
-                                  </div>
+                    </div>
+              </div>
             <div className="space-y-2 max-h-48 overflow-y-auto pr-1">
               {(overview.skill_progress ?? []).map((skill) => (
                 <div key={skill.name} className="rounded-lg border border-white/5 bg-slate-950/40 p-3 text-xs">
@@ -394,7 +394,7 @@ const CodingPage: React.FC = () => {
                 </p>
               )}
                   </div>
-            </Card>
+          </Card>
           </section>
 
         <section className="grid gap-6 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]">
@@ -442,9 +442,9 @@ const CodingPage: React.FC = () => {
           <Card className="bg-slate-900/70 border-slate-800 p-6 space-y-5">
             <div className="flex items-center gap-3">
               <Brain className="h-5 w-5 text-amber-300" />
-              <div>
+                <div>
                 <h2 className="text-lg font-semibold">Practice path</h2>
-                <p className="text-xs text-slate-400">
+                  <p className="text-xs text-slate-400">
                   Blend curated curriculum with Spark playlists for this domain.
                 </p>
             </div>
@@ -482,8 +482,8 @@ const CodingPage: React.FC = () => {
                     </p>
                       </div>
                 ) : null}
-                    </div>
-            ) : (
+                </div>
+              ) : (
               <p className="text-sm text-slate-500">Track content will appear once playlists finish generating.</p>
             )}
           </Card>
@@ -629,15 +629,15 @@ const CodingPage: React.FC = () => {
 
                 <AnimatePresence>
                   {lastResult ? (
-                    <motion.div
-                      key="results"
+                      <motion.div
+                        key="results"
                       initial={{ opacity: 0, y: 8 }}
-                      animate={{ opacity: 1, y: 0 }}
+                        animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -8 }}
                       className="space-y-2 text-xs"
-                    >
-                      <div
-                        className={cn(
+                      >
+                          <div
+                            className={cn(
                           'rounded-lg border p-3',
                           lastResult.passed
                             ? 'border-emerald-500/30 bg-emerald-500/10 text-emerald-100'
@@ -688,13 +688,13 @@ const CodingPage: React.FC = () => {
                           </div>
                         ))}
                       </div>
-                    </motion.div>
-                  ) : (
+                      </motion.div>
+                    ) : (
                     <p className="text-xs text-slate-500">
                       Submit to view detailed test feedback, XP, and mastery updates.
                     </p>
-                  )}
-                </AnimatePresence>
+                    )}
+                  </AnimatePresence>
 
                 {question.practice_question ? (
                   <div className="rounded-xl border border-brand-blue/30 bg-brand-blue/10 p-3 space-y-2 text-xs text-slate-100">
@@ -720,9 +720,9 @@ const CodingPage: React.FC = () => {
                   </div>
                 ) : null}
               </div>
-            </div>
-          )}
-        </Card>
+              </div>
+            )}
+          </Card>
       </div>
     </div>
   )
