@@ -1,0 +1,8 @@
+domain,title,description
+AI/ML,Machine Learning Engineer,"Looking for ML engineer with experience in PyTorch, model deployment, and MLOps. Docker and Kubernetes a plus."
+AI/ML,Applied Scientist,"Role requires strong experience with transformers, huggingface, and vector search."
+Data Science,Senior Data Analyst,"Pandas, SQL, dbt, and Airflow required. Spark nice to have."
+Data Science,Data Scientist,"Seeking candidate skilled in PySpark, Snowflake, feature engineering, and MLflow."
+Web Development,Frontend Engineer,"React, Next.js, Tailwind, and accessibility best practices."
+Cloud,DevOps Engineer,"AWS, Terraform, CI/CD, observability tooling, Docker."
+Cybersecurity,Security Analyst,"SIEM, incident response, Python automation, Splunk."
