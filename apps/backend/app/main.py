@@ -33,6 +33,8 @@ def create_app() -> FastAPI:
             "http://localhost:5173",
             "http://127.0.0.1:5173",
             "http://0.0.0.0:5173",
+            "https://grad-gear-20wpld4yp-nishanth88.vercel.app",
+            "https://grad-gear-nine.vercel.app",
         ],
         allow_credentials=False,
         allow_methods=["*"],
