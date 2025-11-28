@@ -1,10 +1,14 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { toast } from 'react-hot-toast'
+import { useNavigate } from 'react-router-dom'
 import Card from '../components/ui/Card'
 import Button from '../components/ui/Button'
 import { generateResumeApi, uploadResume, analyzeResume } from '../lib/api'
 import AnalysisResults from '../components/resume/AnalysisResults'
+import AiResumeGenerator from '../components/resume/AiResumeGenerator'
+import { useLearningPlanStore } from '../store/learningPlan'
+import { useDomain, domainKeyFromLabel } from '../contexts/DomainProvider'
 
 type ResumeData = {
   personal: {
@@ -48,6 +52,20 @@ const DOMAINS = ['AI/ML', 'Cybersecurity', 'Data Science', 'Web Development', 'C
 
 export default function ResumeBuilder() {
   const [mode, setMode] = useState<'select' | 'create' | 'upload'>('select')
+  const [activeTab, setActiveTab] = useState<'analyze' | 'generate'>('analyze')
+  const navigate = useNavigate()
+  const [hasUploaded, setHasUploaded] = useState(false)
+  const setLearningPlanFromAnalysis = useLearningPlanStore(state => state.setFromAnalysis)
+  const clearLearningPlan = useLearningPlanStore(state => state.clear)
+  const { setDomain } = useDomain()
+  useEffect(() => {
+    setHasUploaded(false)
+    setAnalysisData(null)
+    setShowAnalysis(false)
+    setGeneratedResume('')
+    setAtsScore(null)
+    clearLearningPlan()
+  }, [])
   const [step, setStep] = useState(1)
   const [loading, setLoading] = useState(false)
   const [resumeData, setResumeData] = useState<ResumeData>({
@@ -122,7 +140,14 @@ export default function ResumeBuilder() {
     if (!f) return
     setLoading(true)
     try {
+      clearLearningPlan()
+      setAnalysisData(null)
+      setShowAnalysis(false)
+      setGeneratedResume('')
+      setAtsScore(null)
+
       const res = await uploadResume(f)
+      setHasUploaded(true)
       setAtsScore(res.data.ats_score)
       toast.success('Resume uploaded! Analyzing with AI...')
       
@@ -138,6 +163,7 @@ export default function ResumeBuilder() {
         }))
       }
     } catch (e: any) {
+      setHasUploaded(false)
       toast.error('Failed to upload resume')
     } finally {
       setLoading(false)
@@ -145,12 +171,74 @@ export default function ResumeBuilder() {
   }
 
   async function runFullAnalysis() {
+    if (!hasUploaded) {
+      toast.error('Upload a resume before running the AI analysis.')
+      return
+    }
     setAnalyzing(true)
     try {
       const res = await analyzeResume()
-      setAnalysisData(res.data)
+      const analysis = res.data
+      setAnalysisData(analysis)
       setShowAnalysis(true)
-      toast.success('AI analysis complete!')
+      toast.success('AI analysis complete! Taking you to your learning plan...')
+
+      if (analysis) {
+        const recommendedResources = analysis.recommended_resources || []
+
+        const toPlanResource = (resItem?: any | null): PlanResource | null => {
+          if (!resItem) return null
+          return {
+            title: resItem.title,
+            url: resItem.url,
+            source: resItem.source,
+            estimated_time: resItem.estimated_time,
+            level: resItem.level,
+            reason: resItem.reason,
+          }
+        }
+
+        const timeline: PlanStep[] = recommendedResources.map((item: any, idx: number) => {
+          const resources: any[] = item.resources || []
+          const videoRes = resources.find((r) => (r.source || '').toLowerCase().includes('youtube')) || resources[0]
+          const courseRes = resources.find((r) => /(coursera|udemy|playlist)/i.test(r.source || '')) || resources[1]
+          return {
+            order: idx + 1,
+            skill: item.skill,
+            focus: `Strengthen ${item.skill}`,
+            miniTask: `Complete the recommended tasks and capture measurable results for ${item.skill}.`,
+            duration: courseRes?.estimated_time || videoRes?.estimated_time,
+            video: toPlanResource(videoRes),
+            course: toPlanResource(courseRes),
+            milestone: `Publish a portfolio artifact demonstrating ${item.skill}`,
+          }
+        })
+
+        const projects: ProjectIdea[] = (analysis.missing_skills || []).map((skill: string, idx: number) => ({
+          title: `${skill} Portfolio Project`,
+          description: `Build a project that showcases ${skill}. Document the impact so it can be added to your resume.`,
+          difficulty: idx < 2 ? 'Intermediate' : 'Advanced',
+          duration: timeline[idx]?.duration || '1-2 weeks',
+        }))
+
+        setLearningPlanFromAnalysis(
+          analysis.domain,
+          recommendedResources,
+          {
+            missingSkills: analysis.missing_skills || [],
+            atsScore: analysis.ats_score,
+            timeline,
+            projects,
+            resumeKeywords: analysis.trending_skills?.resume_keywords || analysis.missing_keywords || [],
+            trendingHighDemand: analysis.trending_skills?.high_demand || [],
+            trendingEmerging: analysis.trending_skills?.emerging || [],
+            certifications: analysis.suggested_certifications || [],
+          }
+        )
+        if (analysis.domain) {
+          setDomain(domainKeyFromLabel(analysis.domain))
+        }
+      }
     } catch (e: any) {
       console.error('Analysis error:', e)
       toast.error('Failed to analyze resume')
@@ -184,7 +272,38 @@ export default function ResumeBuilder() {
   return (
     <div className="min-h-screen gradient-bg p-6">
       <div className="max-w-7xl mx-auto">
-        {mode === 'select' && (
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+          <div>
+            <h1 className="font-display text-4xl mb-1">Resume Intelligence</h1>
+            <p className="text-slate-600 dark:text-slate-400">
+              Upload to analyze gaps or let AI craft a brand new resume instantly.
+            </p>
+          </div>
+          <div className="inline-flex rounded-xl bg-white/70 dark:bg-slate-900/50 shadow-sm p-1">
+            <button
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
+                activeTab === 'analyze'
+                  ? 'bg-brand-blue text-white shadow'
+                  : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
+              }`}
+              onClick={() => setActiveTab('analyze')}
+            >
+              Analyze Resume
+            </button>
+            <button
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
+                activeTab === 'generate'
+                  ? 'bg-brand-purple text-white shadow'
+                  : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'
+              }`}
+              onClick={() => setActiveTab('generate')}
+            >
+              Generate New Resume
+            </button>
+          </div>
+        </div>
+
+        {activeTab === 'analyze' && mode === 'select' && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -225,7 +344,7 @@ export default function ResumeBuilder() {
           </motion.div>
         )}
 
-        {mode === 'upload' && (
+        {activeTab === 'analyze' && mode === 'upload' && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -260,12 +379,22 @@ export default function ResumeBuilder() {
                 <Button onClick={() => setMode('select')} variant="ghost" className="mt-4">
                   Back
                 </Button>
-                {atsScore !== null && !showAnalysis && (
-                  <Button onClick={runFullAnalysis} disabled={analyzing} className="mt-4">
+                <Button onClick={() => navigate('/learning')} variant="ghost" className="mt-4 border border-brand-blue text-brand-blue hover:bg-brand-blue/10">
+                  Start Learning
+                </Button>
+                <Button
+                  onClick={runFullAnalysis}
+                  disabled={analyzing || !hasUploaded}
+                  className="mt-4 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
                     {analyzing ? 'Analyzing...' : 'Run Full AI Analysis'}
                   </Button>
-                )}
               </div>
+              {!hasUploaded && (
+                <p className="text-xs text-slate-500 mt-3">
+                  Upload a resume to enable full AI analysis.
+                </p>
+              )}
             </Card>
 
             {/* Comprehensive Analysis Results */}
@@ -276,20 +405,35 @@ export default function ResumeBuilder() {
                 className="mt-6"
               >
                 <Card>
-                  <div className="flex justify-between items-center mb-6">
+                  <div className="flex flex-col gap-6">
+                    <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                      <div>
                     <h2 className="font-display text-2xl">AI-Powered Resume Analysis</h2>
-                    <Button onClick={() => setShowAnalysis(false)} variant="ghost" size="sm">
+                        <p className="text-sm text-slate-500 mt-1">
+                          Review the recommendations below. When you’re ready, click <span className="font-semibold">Start Learning</span> to open a curated plan aligned with your missing skills.
+                        </p>
+                      </div>
+                      <div className="flex flex-wrap items-center gap-3">
+                        <Button variant="ghost" size="sm" onClick={() => setShowAnalysis(false)}>
                       Close
                     </Button>
+                        <Button
+                          onClick={() => navigate('/learning', { state: { focus: 'skill-gap' } })}
+                          className="bg-brand-blue text-white hover:opacity-90"
+                        >
+                          Start Learning with These Skills
+                        </Button>
+                      </div>
+                    </div>
+                    <AnalysisResults data={analysisData} />
                   </div>
-                  <AnalysisResults data={analysisData} />
                 </Card>
               </motion.div>
             )}
           </motion.div>
         )}
 
-        {mode === 'create' && (
+        {activeTab === 'analyze' && mode === 'create' && (
           <div className="space-y-6">
             {/* Progress bar */}
             <div className="glass rounded-xl p-4">
@@ -654,7 +798,7 @@ export default function ResumeBuilder() {
         )}
 
         {/* Generated Resume Preview */}
-        {generatedResume && (
+        {activeTab === 'analyze' && generatedResume && (
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mt-8">
             <div className="grid md:grid-cols-3 gap-6">
               {/* Resume Preview - 2 columns */}
@@ -683,8 +827,8 @@ export default function ResumeBuilder() {
                   <div className="space-y-3">
                     <Button
                       onClick={runFullAnalysis}
-                      disabled={analyzing}
-                      className="w-full"
+                      disabled={analyzing || !hasUploaded}
+                      className="w-full disabled:opacity-50 disabled:cursor-not-allowed"
                       variant="outline"
                     >
                       {analyzing ? 'Analyzing...' : 'Analyze Resume'}
@@ -722,6 +866,10 @@ export default function ResumeBuilder() {
               </motion.div>
             )}
           </motion.div>
+        )}
+
+        {activeTab === 'generate' && (
+          <AiResumeGenerator />
         )}
       </div>
     </div>

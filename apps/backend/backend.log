@@ -1,2 +1,513 @@
 INFO:     Will watch for changes in these directories: ['/Users/nish/Downloads/BDA/gradgear/apps/backend']
 ERROR:    [Errno 48] Address already in use
+INFO:     Will watch for changes in these directories: ['/Users/nish/Downloads/BDA/gradgear/apps/backend']
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [1844] using StatReload
+INFO:     Started server process [1846]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:60199 - "POST /api/register HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60283 - "POST /api/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60357 - "GET /api/quiz?domain=Data%20Science&mode=concept&difficulty=intermediate HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/uvicorn/protocols/http/h11_impl.py", line 403, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.scope, self.receive, self.send
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/uvicorn/middleware/proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/fastapi/applications.py", line 1134, in __call__
+    await super().__call__(scope, receive, send)
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/starlette/applications.py", line 113, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/starlette/middleware/errors.py", line 186, in __call__
+    raise exc
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/starlette/middleware/cors.py", line 85, in __call__
+    await self.app(scope, receive, send)
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/fastapi/middleware/asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/starlette/routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/starlette/routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/starlette/routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/fastapi/routing.py", line 125, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/fastapi/routing.py", line 111, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/fastapi/routing.py", line 391, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/fastapi/routing.py", line 290, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/app/routes/quiz.py", line 4218, in get_quiz
+    bank = _filter_questions(domain_norm, mode, difficulty)
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/app/routes/quiz.py", line 4189, in _filter_questions
+    mode_bank = bank_by_domain.get(mode, [])
+                ^^^^^^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'get'
+INFO:     127.0.0.1:60513 - "GET /api/quiz?domain=Data%20Science&mode=concept&difficulty=intermediate HTTP/1.1" 500 Internal Server Error
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/uvicorn/protocols/http/h11_impl.py", line 403, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.scope, self.receive, self.send
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/uvicorn/middleware/proxy_headers.py", line 60, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/fastapi/applications.py", line 1134, in __call__
+    await super().__call__(scope, receive, send)
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/starlette/applications.py", line 113, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/starlette/middleware/errors.py", line 186, in __call__
+    raise exc
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/starlette/middleware/errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/starlette/middleware/cors.py", line 85, in __call__
+    await self.app(scope, receive, send)
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/starlette/middleware/exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/fastapi/middleware/asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/starlette/routing.py", line 716, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/starlette/routing.py", line 736, in app
+    await route.handle(scope, receive, send)
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/starlette/routing.py", line 290, in handle
+    await self.app(scope, receive, send)
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/fastapi/routing.py", line 125, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/starlette/_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/starlette/_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/fastapi/routing.py", line 111, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/fastapi/routing.py", line 391, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/fastapi/routing.py", line 290, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/app/routes/quiz.py", line 4218, in get_quiz
+    bank = _filter_questions(domain_norm, mode, difficulty)
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/app/routes/quiz.py", line 4189, in _filter_questions
+    mode_bank = bank_by_domain.get(mode, [])
+                ^^^^^^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'get'
+WARNING:  StatReload detected changes in 'app/routes/quiz.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [1846]
+INFO:     Started server process [7089]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'app/routes/quiz.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [7089]
+INFO:     Started server process [12099]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'app/routes/quiz.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [12099]
+INFO:     Started server process [12426]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:63472 - "GET /api/quiz?domain=Data%20Science&mode=concept&difficulty=intermediate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63619 - "GET /api/quiz?domain=Data%20Science&mode=concept&difficulty=intermediate HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'app/routes/quiz.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [12426]
+INFO:     Started server process [13721]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:63763 - "OPTIONS /api/user/profile HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63767 - "OPTIONS /api/quiz?domain=Data+Science&mode=concept&difficulty=intermediate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63768 - "OPTIONS /api/user/profile HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63769 - "OPTIONS /api/quiz?domain=Data+Science&mode=concept&difficulty=intermediate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63767 - "GET /api/quiz?domain=Data+Science&mode=concept&difficulty=intermediate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63769 - "GET /api/quiz?domain=Data+Science&mode=concept&difficulty=intermediate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63763 - "GET /api/user/profile HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63769 - "GET /api/user/profile HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63800 - "OPTIONS /api/quiz?domain=Data+Science&mode=concept&difficulty=beginner HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63800 - "GET /api/quiz?domain=Data+Science&mode=concept&difficulty=beginner HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63800 - "GET /api/quiz?domain=Data+Science&mode=concept&difficulty=intermediate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63819 - "OPTIONS /api/quiz?domain=Data+Science&mode=concept&difficulty=advanced HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63819 - "GET /api/quiz?domain=Data+Science&mode=concept&difficulty=advanced HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63819 - "OPTIONS /api/quiz?domain=Data+Science&mode=interview&difficulty=advanced HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63819 - "GET /api/quiz?domain=Data+Science&mode=interview&difficulty=advanced HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63843 - "OPTIONS /api/quiz?domain=Data+Science&mode=rapid&difficulty=advanced HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63843 - "GET /api/quiz?domain=Data+Science&mode=rapid&difficulty=advanced HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52947 - "OPTIONS /api/user/profile HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52949 - "OPTIONS /api/quiz?domain=Data+Science&mode=rapid&difficulty=advanced HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52949 - "GET /api/quiz?domain=Data+Science&mode=rapid&difficulty=advanced HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52947 - "GET /api/user/profile HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'app/models.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [13721]
+INFO:     Started server process [35638]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:55426 - "OPTIONS /api/resume/upload HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55426 - "POST /api/resume/upload HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55426 - "OPTIONS /api/resume/analyze HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55426 - "POST /api/resume/analyze HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'app/schemas.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [35638]
+INFO:     Started server process [39509]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:56148 - "OPTIONS /api/quiz?domain=Data+Science&mode=concept&difficulty=intermediate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56149 - "OPTIONS /api/quiz?domain=Data+Science&mode=concept&difficulty=intermediate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56148 - "GET /api/quiz?domain=Data+Science&mode=concept&difficulty=intermediate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56148 - "GET /api/quiz?domain=Data+Science&mode=concept&difficulty=intermediate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56146 - "GET /api/user/profile HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56148 - "GET /api/user/profile HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56146 - "GET /api/quiz?domain=Data+Science&mode=concept&difficulty=intermediate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56148 - "GET /api/user/profile HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56149 - "GET /api/quiz?domain=Data+Science&mode=concept&difficulty=intermediate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56146 - "GET /api/user/profile HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56146 - "OPTIONS /api/quiz?domain=Data+Science&mode=concept&difficulty=beginner HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56146 - "GET /api/quiz?domain=Data+Science&mode=concept&difficulty=beginner HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56201 - "GET /api/quiz?domain=Data+Science&mode=concept&difficulty=intermediate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56203 - "OPTIONS /api/quiz?domain=Data+Science&mode=concept&difficulty=advanced HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56203 - "GET /api/quiz?domain=Data+Science&mode=concept&difficulty=advanced HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56203 - "GET /api/quiz?domain=Data+Science&mode=concept&difficulty=intermediate HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56203 - "GET /api/quiz?domain=Data+Science&mode=concept&difficulty=beginner HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56247 - "GET /api/user/profile HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56247 - "GET /api/user/profile HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56247 - "OPTIONS /api/user/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56249 - "OPTIONS /api/user/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56251 - "GET /api/user/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56249 - "GET /api/user/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56249 - "GET /api/user/profile HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56251 - "GET /api/user/profile HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56249 - "GET /api/user/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56251 - "GET /api/user/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56311 - "OPTIONS /api/leaderboard?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56313 - "OPTIONS /api/leaderboard?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56311 - "GET /api/leaderboard?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56313 - "GET /api/leaderboard?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56313 - "GET /api/leaderboard?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56311 - "GET /api/leaderboard?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56367 - "GET /api/user/profile HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56369 - "OPTIONS /api/recommendations/Data%20Science HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56367 - "GET /api/user/profile HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56369 - "GET /api/recommendations/Data%20Science HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56367 - "GET /api/recommendations/Data%20Science HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56367 - "OPTIONS /api/resume/recommendations/skills?domain=Data+Science HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56369 - "OPTIONS /api/resume/recommendations/skills?domain=Data+Science HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56367 - "GET /api/resume/recommendations/skills?domain=Data+Science HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56369 - "GET /api/resume/recommendations/skills?domain=Data+Science HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56367 - "GET /api/user/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56369 - "GET /api/user/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56369 - "GET /api/user/profile HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56367 - "GET /api/user/profile HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56369 - "GET /api/recommendations/Data%20Science HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56369 - "GET /api/recommendations/Data%20Science HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56367 - "GET /api/resume/recommendations/skills?domain=Data+Science HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56367 - "GET /api/resume/recommendations/skills?domain=Data+Science HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56367 - "GET /api/user/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56369 - "GET /api/user/progress HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56677 - "GET /api/leaderboard?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56677 - "GET /api/leaderboard?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56677 - "GET /api/leaderboard?limit=20 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56679 - "GET /api/leaderboard?limit=20 HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'app/core/ai_service.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [39509]
+INFO:     Started server process [43996]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'app/main.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [43996]
+Process SpawnProcess-9:
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.14/3.14.0_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/multiprocessing/process.py", line 320, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.0_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/uvicorn/_subprocess.py", line 80, in subprocess_started
+    target(sockets=sockets)
+    ~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/uvicorn/server.py", line 67, in run
+    return asyncio_run(self.serve(sockets=sockets), loop_factory=self.config.get_loop_factory())
+  File "/opt/homebrew/Cellar/python@3.14/3.14.0_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/asyncio/runners.py", line 204, in run
+    return runner.run(main)
+           ~~~~~~~~~~^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.0_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/asyncio/runners.py", line 127, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.0_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/asyncio/base_events.py", line 719, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/uvicorn/server.py", line 71, in serve
+    await self._serve(sockets)
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/uvicorn/server.py", line 78, in _serve
+    config.load()
+    ~~~~~~~~~~~^^
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/uvicorn/config.py", line 439, in load
+    self.loaded_app = import_from_string(self.app)
+                      ~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/uvicorn/importer.py", line 19, in import_from_string
+    module = importlib.import_module(module_str)
+  File "/opt/homebrew/Cellar/python@3.14/3.14.0_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/importlib/__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1398, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1371, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1342, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 938, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 762, in exec_module
+  File "<frozen importlib._bootstrap>", line 491, in _call_with_frames_removed
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/app/main.py", line 7, in <module>
+    from app.routes import (
+    ...<12 lines>...
+    )
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/app/routes/projects.py", line 10, in <module>
+    from app.core.project_catalog import (
+    ...<5 lines>...
+    )
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/app/core/project_catalog.py", line 345
+    market_alignment="LLMOps evaluation frameworks are now core interview challenges for AI platform roles.",
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+SyntaxError: keyword argument repeated: market_alignment
+WARNING:  StatReload detected changes in 'app/models.py'. Reloading...
+Process SpawnProcess-10:
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.14/3.14.0_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/multiprocessing/process.py", line 320, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.0_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/uvicorn/_subprocess.py", line 80, in subprocess_started
+    target(sockets=sockets)
+    ~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/uvicorn/server.py", line 67, in run
+    return asyncio_run(self.serve(sockets=sockets), loop_factory=self.config.get_loop_factory())
+  File "/opt/homebrew/Cellar/python@3.14/3.14.0_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/asyncio/runners.py", line 204, in run
+    return runner.run(main)
+           ~~~~~~~~~~^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.0_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/asyncio/runners.py", line 127, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.0_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/asyncio/base_events.py", line 719, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/uvicorn/server.py", line 71, in serve
+    await self._serve(sockets)
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/uvicorn/server.py", line 78, in _serve
+    config.load()
+    ~~~~~~~~~~~^^
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/uvicorn/config.py", line 439, in load
+    self.loaded_app = import_from_string(self.app)
+                      ~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/uvicorn/importer.py", line 19, in import_from_string
+    module = importlib.import_module(module_str)
+  File "/opt/homebrew/Cellar/python@3.14/3.14.0_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/importlib/__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1398, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1371, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1342, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 938, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 762, in exec_module
+  File "<frozen importlib._bootstrap>", line 491, in _call_with_frames_removed
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/app/main.py", line 7, in <module>
+    from app.routes import (
+    ...<12 lines>...
+    )
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/app/routes/projects.py", line 10, in <module>
+    from app.core.project_catalog import (
+    ...<5 lines>...
+    )
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/app/core/project_catalog.py", line 345
+    market_alignment="LLMOps evaluation frameworks are now core interview challenges for AI platform roles.",
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+SyntaxError: keyword argument repeated: market_alignment
+WARNING:  StatReload detected changes in 'app/models.py'. Reloading...
+Process SpawnProcess-11:
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.14/3.14.0_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/multiprocessing/process.py", line 320, in _bootstrap
+    self.run()
+    ~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.0_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/uvicorn/_subprocess.py", line 80, in subprocess_started
+    target(sockets=sockets)
+    ~~~~~~^^^^^^^^^^^^^^^^^
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/uvicorn/server.py", line 67, in run
+    return asyncio_run(self.serve(sockets=sockets), loop_factory=self.config.get_loop_factory())
+  File "/opt/homebrew/Cellar/python@3.14/3.14.0_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/asyncio/runners.py", line 204, in run
+    return runner.run(main)
+           ~~~~~~~~~~^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.0_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/asyncio/runners.py", line 127, in run
+    return self._loop.run_until_complete(task)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.0_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/asyncio/base_events.py", line 719, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/uvicorn/server.py", line 71, in serve
+    await self._serve(sockets)
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/uvicorn/server.py", line 78, in _serve
+    config.load()
+    ~~~~~~~~~~~^^
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/uvicorn/config.py", line 439, in load
+    self.loaded_app = import_from_string(self.app)
+                      ~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/venv/lib/python3.14/site-packages/uvicorn/importer.py", line 19, in import_from_string
+    module = importlib.import_module(module_str)
+  File "/opt/homebrew/Cellar/python@3.14/3.14.0_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/importlib/__init__.py", line 88, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen importlib._bootstrap>", line 1398, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1371, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1342, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 938, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 762, in exec_module
+  File "<frozen importlib._bootstrap>", line 491, in _call_with_frames_removed
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/app/main.py", line 7, in <module>
+    from app.routes import (
+    ...<12 lines>...
+    )
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/app/routes/projects.py", line 10, in <module>
+    from app.core.project_catalog import (
+    ...<5 lines>...
+    )
+  File "/Users/nish/Downloads/BDA/gradgear/apps/backend/app/core/project_catalog.py", line 345
+    market_alignment="LLMOps evaluation frameworks are now core interview challenges for AI platform roles.",
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+SyntaxError: keyword argument repeated: market_alignment
+INFO:     Stopping reloader process [1844]
+INFO:     Will watch for changes in these directories: ['/Users/nish/Downloads/BDA/gradgear/apps/backend']
+ERROR:    [Errno 48] Address already in use
+INFO:     Will watch for changes in these directories: ['/Users/nish/Downloads/BDA/gradgear/apps/backend']
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     Started reloader process [23411] using StatReload
+INFO:     Started server process [23428]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:64560 - "GET /api/coding/tracks HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64706 - "GET /api/coding/tracks HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64707 - "GET /api/coding/tracks/ds-track-1/tasks HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64707 - "GET /api/coding/tracks HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64707 - "GET /api/coding/tracks/ds-track-1/tasks HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64854 - "GET /api/coding/tracks HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64854 - "GET /api/coding/tracks/ds-track-1/tasks HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65230 - "GET /api/coding/tracks/ai-ml-track-1/tasks HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65263 - "GET /api/coding/tracks/ds-track-1/tasks HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65262 - "GET /api/coding/tracks HTTP/1.1" 200 OK
+WARNING:  StatReload detected changes in 'scripts/seed_coding_tasks.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [23428]
+INFO:     Started server process [26824]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  StatReload detected changes in 'scripts/seed_coding_tasks.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [26824]
+INFO:     Started server process [34034]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     127.0.0.1:51361 - "OPTIONS /api/coding/tracks HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51362 - "OPTIONS /api/coding/tracks/ds-track-1/tasks HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51361 - "GET /api/coding/tracks/ds-track-1/tasks HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51361 - "OPTIONS /api/coding/tasks/ds-track-1-task-1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51361 - "GET /api/coding/tasks/ds-track-1-task-1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51362 - "GET /api/coding/tracks HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51362 - "GET /api/coding/tracks HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51362 - "GET /api/coding/tracks/ds-track-1/tasks HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51362 - "GET /api/coding/tasks/ds-track-1-task-1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51469 - "GET /api/coding/tasks/ds-track-1-task-1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51513 - "OPTIONS /api/coding/tasks/ds-track-1-task-1/run HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51513 - "POST /api/coding/tasks/ds-track-1-task-1/run HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:51686 - "GET /api/coding/tracks HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51686 - "GET /api/coding/tracks/ds-track-1/tasks HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51686 - "GET /api/coding/tasks/ds-track-1-task-1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51762 - "OPTIONS /api/coding/tasks/ds-track-1-task-1/submit HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51762 - "POST /api/coding/tasks/ds-track-1-task-1/submit HTTP/1.1" 500 Internal Server Error
+INFO:     127.0.0.1:51874 - "GET /api/coding/tasks/ds-track-1-task-1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51870 - "GET /api/coding/tracks HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51872 - "GET /api/coding/tracks/ds-track-1/tasks HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51926 - "OPTIONS /api/coding/tasks/ds-track-1-task-2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51926 - "GET /api/coding/tasks/ds-track-1-task-2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52021 - "GET /api/coding/tracks HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52022 - "GET /api/coding/tracks/ds-track-1/tasks HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52023 - "GET /api/coding/tasks/ds-track-1-task-2 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55136 - "POST /api/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55204 - "POST /api/coding/tasks/ds-track-1-task-1/submit HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55556 - "POST /api/coding/tasks/ds-track-1-task-1/run HTTP/1.1" 500 Internal Server Error
+WARNING:  StatReload detected changes in 'app/main.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [34034]
+INFO:     Started server process [48865]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [48865]
+INFO:     Stopping reloader process [23411]

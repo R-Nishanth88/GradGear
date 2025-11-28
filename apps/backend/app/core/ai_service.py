@@ -363,3 +363,46 @@ Generate the resume content now:
         # This is a simplified version - in production, use more sophisticated parsing
         return ai_content  # Will be processed by template formatter
 
+<<<<<<< HEAD
+=======
+    async def generate_project_bullet(
+        self,
+        title: str,
+        summary: str,
+        tech_stack: List[str],
+        impact_summary: str,
+    ) -> str:
+        """
+        Generate a resume-ready bullet point for a completed portfolio project.
+        """
+        prompt = f"""You are GradGear AI, an expert resume writer.
+
+Create ONE concise resume bullet (max 28 words) for the project "{title}".
+Context:
+- Project summary: {summary}
+- Tech stack: {', '.join(tech_stack)}
+- Impact: {impact_summary}
+
+Constraints:
+- Start with an action verb.
+- Mention tech stack and quantifiable or directional impact (fabricate a realistic metric if none given).
+- Past tense, ATS-optimised, no first person, no filler.
+- Return only the bullet text without quotes or bullet characters.
+"""
+        try:
+            if self.preferred_model == "openai" and self.openai_key:
+                return (await self._call_openai_text(prompt)).strip().lstrip("-• ")
+            if self.gemini_key:
+                return (await self._call_gemini_text(prompt)).strip().lstrip("-• ")
+        except Exception as exc:
+            print(f"AI project bullet generation error: {exc}")
+        return self._fallback_project_bullet(title, tech_stack, impact_summary)
+
+    def _fallback_project_bullet(self, title: str, tech_stack: List[str], impact: str) -> str:
+        stack = ", ".join(tech_stack[:3]) if tech_stack else "modern tooling"
+        impact_phrase = impact.rstrip(".")
+        return (
+            f"Delivered {title.lower()} using {stack}, translating {impact_phrase.lower()} into a production-ready deliverable adopted during stakeholder review."
+        )
+
+>>>>>>> 1c14d9e200a05891a5ee3c222d804cb3085955f3

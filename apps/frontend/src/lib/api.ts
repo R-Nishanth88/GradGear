@@ -51,16 +51,6 @@ export function analyzeSkills(payload: { skills?: string[]; resume?: string }) {
   })
 }
 
-export function recommendProjects(payload: { skills: string[] }) {
-  // return api.post('/projects/recommend', payload)
-  return mock({
-    items: [
-      { title: 'Real-time Skill Tracker', tags: ['React','Socket.io'], difficulty: 'Medium' },
-      { title: 'Spark Job Market Analyzer', tags: ['Spark','MLlib'], difficulty: 'Hard' }
-    ]
-  })
-}
-
 export function generateResume(payload: { summary: string; skills: string[] }) {
   // return api.post('/resume/generate', payload)
   return mock({
@@ -125,6 +115,42 @@ export function generateResumeApi(payload: {
   return api.post('/resume/generate', payload)
 }
 
+export function generateAiResume(payload: {
+  name: string
+  domain: string
+  contact: {
+    email: string
+    phone?: string
+    linkedin?: string
+    github?: string
+  }
+  skills: string[]
+  education: Array<{
+    institution: string
+    degree: string
+    year?: string
+    gpa?: string
+    highlights?: string[]
+  }>
+  projects?: Array<{
+    title: string
+    description?: string
+    impact?: string
+    tools?: string[]
+    link?: string
+  }>
+  experience?: Array<{
+    title: string
+    company?: string
+    location?: string
+    duration?: string
+    achievements?: string[]
+  }>
+  summary?: string
+}) {
+  return api.post('/resume/generate-ai', payload)
+}
+
 export function getSkillRecommendations(domain: string, skills?: string[]) {
   const params = new URLSearchParams()
   params.append('domain', domain)
@@ -142,9 +168,119 @@ export function trackProgress(activityType: string, activityData: any) {
 // Recommendations
 export function getRecommendations(domain: string) { return api.get(`/recommendations/${encodeURIComponent(domain)}`) }
 
+// Learning resources & roadmap
+export function getLearningPath(domain: string) {
+  return api.get('/learning/path', { params: { domain } })
+}
+
+export function getDomainResources(domain: string, skill?: string) {
+  return api.get('/resources', { params: { domain, skill } })
+}
+
+export function getCertifications(domain: string) {
+  return api.get('/certifications', { params: { domain } })
+}
+
+export function getDomainProjects(domain: string, params?: { difficulty?: string; time?: string }) {
+  return api.get('/projects', { params: { domain, ...params } })
+}
+
+export function getProjectDetail(projectId: string) {
+  return api.get(`/projects/${projectId}`)
+}
+
+export function startProject(projectId: string, payload?: { overwrite?: boolean }) {
+  return api.post(`/projects/${projectId}/start`, payload ?? { overwrite: false })
+}
+
+export function completeProjectStep(projectId: string, stepId: string) {
+  return api.post(`/projects/${projectId}/steps/complete`, { step_id: stepId })
+}
+
+export function submitProject(projectId: string, githubUrl: string) {
+  return api.post(`/projects/${projectId}/submit`, { github_url: githubUrl })
+}
+
 // Quiz & Coding
-export function getQuiz(domain: string) { return api.get(`/quiz/${encodeURIComponent(domain)}`) }
-export function getCodingTests() { return api.get('/codingtest') }
+export function getQuiz(domain: string, mode: string, difficulty: string) {
+  return api.get('/quiz', { params: { domain, mode, difficulty } })
+}
+export function submitQuizResult(payload: {
+  domain: string
+  mode: string
+  difficulty: string
+  score: number
+  total_questions: number
+  total_time_taken?: number
+  responses: Array<{ id: string; selected: number; correct: number; correctLabel: string; explanation: string; skill?: string; time_taken?: number }>
+}) {
+  return api.post('/quiz/submit', payload)
+}
+
+// Coding practice
+export function getCodingTracks() {
+  return api.get('/coding/tracks')
+}
+
+export function getCodingTasks(trackId: string) {
+  return api.get(`/coding/tracks/${trackId}/tasks`)
+}
+
+export function getCodingTaskDetail(taskId: string) {
+  return api.get(`/coding/tasks/${taskId}`)
+}
+
+export function runCodingTask(taskId: string, code: string) {
+  return api.post(`/coding/tasks/${taskId}/run`, { code })
+}
+
+export function submitCodingTask(taskId: string, code: string) {
+  return api.post(`/coding/tasks/${taskId}/submit`, { code })
+}
+
+export function getUserInsights() {
+  return api.get('/intelligence/user/insights')
+}
+
+export function getTrendingSkills(params: { domain: string }) {
+  return api.get('/intelligence/trending', { params })
+}
+
+export function getSkillGap(params: { domain: string }) {
+  return api.get('/intelligence/skill-gap', { params })
+}
+
+export function getCodingOverview(params?: { domain?: string }) {
+  return api.get('/coding/overview', { params })
+}
+
+export function getCodingLesson(skill: string, params?: { domain?: string }) {
+  return api.get('/coding/lesson', { params: { skill, ...(params ?? {}) } })
+}
+
+export function getNextCodingQuestion(params?: { domain?: string; level?: string }) {
+  return api.get('/coding/question/next', { params })
+}
+
+export function submitCodingQuestion(payload: { question_id: string; code: string; language?: string }) {
+  return api.post('/coding/submit', {
+    question_id: payload.question_id,
+    code: payload.code,
+    language: payload.language,
+  })
+}
+
+export function requestCodingHint(payload: { question_id: string; attempt?: number; code_snapshot?: string }) {
+  return api.post('/coding/hint', payload)
+}
+
+export function updateCodingTrackProgress(payload: { track_id: string; item_id: string; status: 'not-started' | 'in-progress' | 'completed' }) {
+  return api.post('/coding/track', payload)
+}
+
+export function getCodingTrackContent(params?: { domain?: string; level?: string }) {
+  return api.get('/coding/track', { params })
+}
 
 // Leaderboard
 export function getLeaderboard(limit?: number) { return api.get('/leaderboard', { params: { limit } }) }

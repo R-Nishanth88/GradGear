@@ -485,7 +485,7 @@ export default function Home() {
             {[
               { title: 'Resume Analyzer', icon: '📄', path: '/resume', desc: 'Analyze & optimize your resume' },
               { title: 'Coding Practice', icon: '💻', path: '/coding', desc: 'Practice coding challenges' },
-              { title: 'Projects', icon: '🚀', path: '/skills', desc: 'Get project suggestions' },
+              { title: 'Projects', icon: '🚀', path: '/projects', desc: 'Get project suggestions' },
               { title: 'Certifications', icon: '🎖️', path: '/learning', desc: 'Certification roadmap' },
             ].map((action, index) => (
               <motion.div

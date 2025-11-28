@@ -8,6 +8,11 @@ class Settings:
     ACCESS_TTL_MIN = int(os.getenv("ACCESS_TTL_MIN", "60"))
 
     DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./gradgear.db")
+<<<<<<< HEAD
+=======
+    MONGODB_URI = os.getenv("MONGODB_URI", "")
+    MONGODB_DB_NAME = os.getenv("MONGODB_DB_NAME", "gradgear")
+>>>>>>> 1c14d9e200a05891a5ee3c222d804cb3085955f3
     
     # AI Configuration
     OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")

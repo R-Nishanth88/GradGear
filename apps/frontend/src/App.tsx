@@ -12,9 +12,10 @@ import ResumeBuilder from './pages/ResumeBuilder'
 import Insights from './pages/Insights'
 import Profile from './pages/Profile'
 import PrivateRoute from './components/PrivateRoute'
-import LearningPath from './pages/LearningPath'
+import LearningPage from './pages/LearningPage'
+import Projects from './pages/Projects'
 import Quiz from './pages/Quiz'
-import CodingTests from './pages/CodingTests'
+import CodingPage from './pages/Coding'
 import SkillDashboard from './pages/SkillDashboard'
 import Leaderboard from './pages/Leaderboard'
 import authStore from './store/auth'
@@ -83,7 +84,15 @@ export default function App() {
               path="/learning"
               element={
                 <PrivateRoute>
-                  <LearningPath />
+                  <LearningPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/projects"
+              element={
+                <PrivateRoute>
+                  <Projects />
                 </PrivateRoute>
               }
             />
@@ -99,7 +108,7 @@ export default function App() {
               path="/coding"
               element={
                 <PrivateRoute>
-                  <CodingTests />
+                  <CodingPage />
                 </PrivateRoute>
               }
             />

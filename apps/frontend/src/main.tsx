@@ -3,6 +3,8 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import './styles.css'
 import App from './App'
+import { DomainProvider } from './contexts/DomainProvider'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 // Suppress Recharts defaultProps warnings globally
 const originalWarn = console.warn
@@ -36,10 +38,16 @@ console.error = (...args: any[]) => {
   originalError.apply(console, args)
 }
 
+const queryClient = new QueryClient()
+
 createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <DomainProvider>
+          <App />
+        </DomainProvider>
+      </BrowserRouter>
+    </QueryClientProvider>
   </React.StrictMode>
 )
