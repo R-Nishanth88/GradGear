@@ -39,8 +39,9 @@ def create_app() -> FastAPI:
             "http://127.0.0.1",
             "https://grad-gear-20wpld4yp-nishanth88.vercel.app",
             "https://grad-gear-nine.vercel.app",
+            "https://grad-gear-ltypz0a4q-nishanth88.vercel.app",
         ],
-        allow_origin_regex=r"^http://(localhost|127\.0\.0\.1)(:\d+)?$",
+        allow_origin_regex=r"^(http://(localhost|127\.0\.0\.1)(:\d+)?$|https://.*\.vercel\.app$)",
         allow_credentials=True,
         allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
         allow_headers=["*"],  # includes Authorization
