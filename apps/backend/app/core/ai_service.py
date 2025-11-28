@@ -363,8 +363,6 @@ Generate the resume content now:
         # This is a simplified version - in production, use more sophisticated parsing
         return ai_content  # Will be processed by template formatter
 
-<<<<<<< HEAD
-=======
     async def generate_project_bullet(
         self,
         title: str,
@@ -405,4 +403,3 @@ Constraints:
             f"Delivered {title.lower()} using {stack}, translating {impact_phrase.lower()} into a production-ready deliverable adopted during stakeholder review."
         )
 
->>>>>>> 1c14d9e200a05891a5ee3c222d804cb3085955f3

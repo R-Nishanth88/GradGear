@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-from fastapi import APIRouter, UploadFile, File, HTTPException, Depends, Form, Body
-from typing import List, Dict, Optional
-from app.schemas import ResumeGenerateRequest, ResumeAnalysis, ResumeAnalyzeRequest
-=======
 from fastapi import APIRouter, UploadFile, File, HTTPException, Depends, Form
 from typing import List, Dict, Optional, Any
 from uuid import uuid4
@@ -19,7 +14,6 @@ from app.schemas import (
     AIResumeGenerateRequest,
     AIResumeGenerateResponse,
 )
->>>>>>> 1c14d9e200a05891a5ee3c222d804cb3085955f3
 from app.routes.auth_ext import get_current_user
 from app.models import User, Resume
 from app.core.ats_scorer import ATSScorer
@@ -28,10 +22,7 @@ from app.core.skill_categorizer import SkillCategorizer
 from app.core.course_recommender import CourseRecommender
 from app.core.ai_service import AIService
 from app.core.trending_skills import TrendingSkillsDetector
-<<<<<<< HEAD
-=======
 from app.core.learning_data import get_project_suggestions
->>>>>>> 1c14d9e200a05891a5ee3c222d804cb3085955f3
 from sqlalchemy.orm import Session
 from app.db import get_db
 import PyPDF2
@@ -54,11 +45,7 @@ def _infer_domain_from_text(text: str) -> str:
     text_l = text.lower()
     for dom in candidates:
         ats_tmp.domain = dom
-<<<<<<< HEAD
-        ats_tmp.domain_keywords = ats_tmp._get_domain_keywords(dom)
-=======
         ats_tmp.domain_keywords = ATSScorer.DOMAIN_KEYWORDS.get(dom, [])
->>>>>>> 1c14d9e200a05891a5ee3c222d804cb3085955f3
         score = 0
         for kw in ats_tmp.domain_keywords:
             if kw in text_l:
@@ -369,21 +356,12 @@ async def analyze_resume(
         categorized_skills.get('soft', [])
     )
     trending_data = trending_detector.get_trending_skills(domain, all_current_skills)
-<<<<<<< HEAD
-=======
     trending_data = trending_detector.get_trending_skills(domain, all_current_skills)
->>>>>>> 1c14d9e200a05891a5ee3c222d804cb3085955f3
     
     # 6. Certification Recommendations
     certifications = trending_detector.get_recommended_certifications(domain)
     
     # 7. Missing Skills & Course Recommendations
-<<<<<<< HEAD
-    missing_skills = trending_data.get('missing', []) or skill_categorizer.find_missing_skills(categorized_skills, domain)
-    recommended_resources = []
-    
-    for skill in missing_skills[:5]:  # Top 5 missing skills
-=======
     missing_skills = [
         skill for skill in (
             trending_data.get('missing', []) or skill_categorizer.find_missing_skills(categorized_skills, domain)
@@ -393,14 +371,11 @@ async def analyze_resume(
     learning_plan = []
     
     for idx, skill in enumerate(missing_skills[:5]):  # Top 5 resume-specific gaps
->>>>>>> 1c14d9e200a05891a5ee3c222d804cb3085955f3
         courses = await course_recommender.recommend(skill, domain)
         recommended_resources.append({
             'skill': skill,
             'resources': courses,
         })
-<<<<<<< HEAD
-=======
         video_resource = next((c for c in courses if c.get('source', '').lower() == 'youtube'), None)
         course_resource = next((c for c in courses if c.get('source', '').lower() != 'youtube'), None)
         learning_plan.append({
@@ -446,7 +421,6 @@ async def analyze_resume(
             project_recommendations.append(project)
     if not project_recommendations:
         project_recommendations = project_catalog[:3]
->>>>>>> 1c14d9e200a05891a5ee3c222d804cb3085955f3
     
     # Build comprehensive response
     improvements = ai_analysis.get('improvements', [])
@@ -470,16 +444,6 @@ async def analyze_resume(
         'improvements': improvements,
         'missing_skills': missing_skills[:5],
         'trending_skills': {
-<<<<<<< HEAD
-            'high_demand': trending_data.get('high_demand', [])[:5],
-            'emerging': trending_data.get('emerging', [])[:3],
-        },
-        'suggested_certifications': [
-            {'name': c['name'], 'provider': c['provider'], 'level': c['level']}
-            for c in certifications
-        ],
-        'recommended_resources': recommended_resources,
-=======
             'high_demand': personalized_high_demand[:5],
             'emerging': personalized_emerging,
             'resume_keywords': missing_keywords[:5],
@@ -501,7 +465,6 @@ async def analyze_resume(
         'learning_plan': learning_plan,
         'project_recommendations': project_recommendations,
         'learning_summary': f"Focus on {len(missing_skills[:5])} key skills to raise your ATS score and align with current {domain} hiring signals.",
->>>>>>> 1c14d9e200a05891a5ee3c222d804cb3085955f3
         'categorized_skills': categorized_skills,
         'plagiarism': {
             'plagiarism_score': plagiarism_result['plagiarism_score'],
@@ -566,10 +529,6 @@ async def generate_resume(req: ResumeGenerateRequest, user: User = Depends(get_c
     
     # Track progress
     try:
-<<<<<<< HEAD
-        import json
-=======
->>>>>>> 1c14d9e200a05891a5ee3c222d804cb3085955f3
         from app.models import Progress
         progress = db.query(Progress).filter(Progress.user_id == user.id).first()
         if not progress:
@@ -603,8 +562,6 @@ async def generate_resume(req: ResumeGenerateRequest, user: User = Depends(get_c
     }
 
 
-<<<<<<< HEAD
-=======
 @router.post("/generate-ai", response_model=AIResumeGenerateResponse)
 async def generate_resume_ai(
     req: AIResumeGenerateRequest,
@@ -674,7 +631,6 @@ async def generate_resume_ai(
     )
 
 
->>>>>>> 1c14d9e200a05891a5ee3c222d804cb3085955f3
 async def _generate_template_resume(req, user, personal, education, experience, projects):
     """Template-based resume generation (fallback)."""
     # Build resume HTML matching template
@@ -760,11 +716,7 @@ async def get_skill_recommendations(
     recommendations = []
     
     for skill in missing_skills[:5]:
-<<<<<<< HEAD
-        courses = course_recommender.recommend(skill, domain)
-=======
         courses = await course_recommender.recommend(skill, domain)
->>>>>>> 1c14d9e200a05891a5ee3c222d804cb3085955f3
         recommendations.append({
             'skill': skill,
             'courses': courses,
@@ -781,10 +733,6 @@ async def track_resume_progress(
     db: Session = Depends(get_db)
 ):
     """Track user activity for progress and badges."""
-<<<<<<< HEAD
-    import json
-=======
->>>>>>> 1c14d9e200a05891a5ee3c222d804cb3085955f3
     try:
         data = json.loads(activity_data)
     except:
@@ -830,8 +778,6 @@ async def track_resume_progress(
     db.commit()
     
     return {'success': True, 'badges': badges}
-<<<<<<< HEAD
-=======
 
 
 def _build_structured_resume(req: AIResumeGenerateRequest) -> Dict[str, Any]:
@@ -1145,4 +1091,3 @@ def _ensure_resume_generated_columns(db: Session) -> None:
         statements.append(text("ALTER TABLE resumes ADD COLUMN generated_docx_url VARCHAR(500)"))
     for stmt in statements:
         db.execute(stmt)
->>>>>>> 1c14d9e200a05891a5ee3c222d804cb3085955f3
